@@ -30,3 +30,33 @@ export const fetchTweets = () => {
       .catch(error => dispatch(fetchTweetsError(error)));
   };
 };
+
+export const fetchTweetDetailsStart = () => {
+  return {
+    type: actionTypes.FETCH_TWEET_DETAILS_START
+  };
+};
+
+export const fetchTweetDetailsSuccess = tweetDetails => {
+  return {
+    type: actionTypes.FETCH_TWEET_DETAILS_SUCCESS,
+    tweetDetails
+  };
+};
+
+export const fetchTweetDetailsError = () => {
+  return {
+    type: actionTypes.FETCH_TWEET_DETAILS_ERROR
+  };
+};
+
+export const fetchTweetDetails = postId => {
+  return dispatch => {
+    dispatch(fetchTweetDetailsStart());
+
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+      .then(response => response.json())
+      .then(data => dispatch(fetchTweetDetailsSuccess(data)))
+      .catch(error => dispatch(fetchTweetDetailsError(error)));
+  };
+};

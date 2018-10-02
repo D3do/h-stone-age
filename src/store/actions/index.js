@@ -1,3 +1,4 @@
 export {
-  fetchTweets
+  fetchTweets,
+  fetchTweetDetails
 } from './tweetActions';
