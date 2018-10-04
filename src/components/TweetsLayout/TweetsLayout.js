@@ -3,23 +3,20 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import SingleTweet from '../SingleTweet/SingleTweet';
 import Button from '../Button/Button';
+import Input from '../Input/Input';
 
 class App extends Component {
   state = {
-    tweets: [],
-    visibleTweets: []
+    visibleTweets: [],
+    search: ''
   }
 
   componentDidMount() {
     this.props.fetchTweets();
   }
 
-  // componentDidMount() {
-  //   this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
-  // }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  handleSearch = event => {
+    this.setState({ search: event.target.value })
   }
 
   handleLogout = () => {
@@ -29,30 +26,36 @@ class App extends Component {
 
   render() {
     const names = ['Ozzy', 'Bruce', 'James', 'Dave', 'Tom', 'Till', 'Ronnie', 'James', 'Dio', 'Neil'];
-    let tweets = <p>Loading...</p>
-    if (this.props.tweets) {
-      tweets = (
-        this.props.tweets.map(tweet => (
-          <SingleTweet
-            key={tweet.id}
-            name={names[tweet.userId - 1]}
-            title={tweet.title}
-            postId={tweet.id}
-            tweetDetails={() => {
-              this.props.fetchTweetDetails(tweet.id)
-            }}
-          />
-        ))
-      )
-    }
+    let filteredTweets = this.props.tweets.filter(
+       tweet => {
+         return tweet.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+       }
+    );
 
     return (
       <div className="TweetsLayout">
         <Button click={this.handleLogout}>Logout</Button>
+        <Input
+          name="search"
+          type="text"
+          placeholder="filter posts"
+          handleChange={this.handleSearch}
+          value={this.state.search}></Input>
         <div className="tweets">
-          {tweets}
+          {
+            filteredTweets.map(tweet => (
+              <SingleTweet
+                key={tweet.id}
+                name={names[tweet.userId - 1]}
+                title={tweet.title}
+                postId={tweet.id}
+                tweetDetails={() => {
+                  this.props.fetchTweetDetails(tweet.id)
+                }}
+              />
+            ))
+          }
         </div>
-        test
       </div>
     );
   }
