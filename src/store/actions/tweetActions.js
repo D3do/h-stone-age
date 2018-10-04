@@ -60,3 +60,15 @@ export const fetchTweetDetails = postId => {
       .catch(error => dispatch(fetchTweetDetailsError(error)));
   };
 };
+
+export const login = (props) => {
+  return {
+    type: actionTypes.LOGIN
+  };
+};
+
+export const logout = (props) => {
+  return {
+    type: actionTypes.LOGOUT
+  };
+};

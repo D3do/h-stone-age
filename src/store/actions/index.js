@@ -1,4 +1,6 @@
 export {
   fetchTweets,
-  fetchTweetDetails
+  fetchTweetDetails,
+  login,
+  logout
 } from './tweetActions';

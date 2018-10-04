@@ -7,6 +7,7 @@ const initialState = {
   tweetDetails: {},
   fetchTweetDetailsStart: false,
   fetchTweetDetailsError: false,
+  loggedIn: true
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,7 +22,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         fetchTweetsStart: false,
-        tweets: action.tweets.reverse()
+        tweets: action.tweets.reverse().slice(1)
       }
 
     case actionTypes.FETCH_TWEETS_ERROR:
@@ -49,8 +50,20 @@ const reducer = (state = initialState, action) => {
         fetchTweetDetailsError: true
       }
 
+    case actionTypes.LOGIN:
+      return {
+        ...state,
+        loggedIn: true
+      }
+
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        loggedIn: false
+      }
+
     default:
-      return reducer;
+      return state;
   }
 };
 
