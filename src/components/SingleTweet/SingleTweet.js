@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const SingleTweet = (props) => (
-  <div>
+  <React.Fragment>
     <h2>UserId:</h2>
     <p>{props.name}</p>
     <Link
@@ -12,7 +12,7 @@ const SingleTweet = (props) => (
       <h2>Title:</h2>
       <p>{props.title}</p>
     </Link>
-  </div>
+  </React.Fragment>
 );
 
 export default SingleTweet;

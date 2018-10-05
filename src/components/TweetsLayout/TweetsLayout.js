@@ -8,11 +8,18 @@ import Input from '../Input/Input';
 class App extends Component {
   state = {
     visibleTweets: [],
-    search: ''
+    search: '',
+    names: ['Ozzy', 'Bruce', 'James', 'Dave', 'Tom', 'Till', 'Ronnie', 'James', 'Dio', 'Neil']
   }
 
   componentDidMount() {
     this.props.fetchTweets();
+
+    this.interval = setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   handleSearch = event => {
@@ -24,9 +31,27 @@ class App extends Component {
     this.props.history.push('/');
   }
 
+  tick() {
+    const tweets = this.props.tweets;
+    const visibleTweets = this.state.visibleTweets;
+    
+    if (visibleTweets.length >= tweets.length - 1) {
+      clearInterval(this.interval);
+    }
+
+    this.setState((prevState) => {
+      const tweetLoadedLength = prevState.visibleTweets.length;
+
+      return {
+        visibleTweets: [...prevState.visibleTweets, tweets[tweetLoadedLength]],
+      };
+    });
+    console.log(this.state.visibleTweets)
+  }
+
   render() {
     const names = ['Ozzy', 'Bruce', 'James', 'Dave', 'Tom', 'Till', 'Ronnie', 'James', 'Dio', 'Neil'];
-    let filteredTweets = this.props.tweets.filter(
+    let filteredTweets = this.state.visibleTweets.filter(
        tweet => {
          return tweet.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
        }
