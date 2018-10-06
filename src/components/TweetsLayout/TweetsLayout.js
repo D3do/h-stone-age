@@ -9,7 +9,7 @@ class App extends Component {
   state = {
     visibleTweets: [],
     search: '',
-    names: ['Ozzy', 'Bruce', 'James', 'Dave', 'Tom', 'Till', 'Ronnie', 'James', 'Dio', 'Neil']
+    names: ['Ozzy', 'Bruce', 'James', 'Dave', 'Tom', 'Till', 'Ronnie', 'James', 'Dio', 'Neil'],
   }
 
   componentDidMount() {
@@ -22,11 +22,16 @@ class App extends Component {
     clearInterval(this.interval);
   }
 
+  componentDidCatch(error) {
+    console.log('tweetlayout error')
+  }
+
   handleSearch = event => {
     this.setState({ search: event.target.value })
   }
 
   handleLogout = () => {
+    sessionStorage.removeItem('user');
     this.props.logout();
     this.props.history.push('/');
   }
@@ -89,7 +94,8 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     tweets: state.tweets,
-    loading: state.fetchTweetsStart
+    loading: state.fetchTweetsStart,
+    error: state.error
   }
 }
 

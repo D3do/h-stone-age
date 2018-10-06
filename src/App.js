@@ -4,13 +4,28 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import Auth from './components/Auth/Auth';
 import TweetsLayout from './components/TweetsLayout/TweetsLayout';
 import TweetDetails from './components/TweetDetails/TweetDetails';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import NotFound from './components/NotFound/NotFound';
 
 class App extends Component {
+  state = {
+    error: false,
+    errorMessage: ''
+  }
+  
+  componentDidCatch(error, info) {
+    this.setState({
+      error: true,
+      errorMessage: error
+    })
+  }
+
   render() {
     let routes = (
       <Switch>
         <Route path='/' exact component={Auth} />
         <Redirect to='/' />
+        <Route path="*" component={NotFound} />
       </Switch>
     )
 
@@ -20,13 +35,16 @@ class App extends Component {
           <Route path='/posts/:postId' component={TweetDetails} />
           <Route path='/posts' component={TweetsLayout} />
           <Route path='/' exact component={Auth} />
+          <Route path="*" component={NotFound} />
         </Switch>
       )
     }
 
     return (
       <div className="App">
-        {routes}
+        <ErrorBoundary>
+          {routes}
+        </ErrorBoundary>
       </div>
     );
   }

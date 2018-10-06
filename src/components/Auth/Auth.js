@@ -20,6 +20,7 @@ class Auth extends Component {
   validateForm = () => {
     let isError = false;
     let {userName, password} = this.state;
+    let user = {};
     const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
     if(userName.length < 5) {
       isError = true;
@@ -37,8 +38,13 @@ class Auth extends Component {
 
     if(!isError) {
       this.setState({isFormValid: true});
-      this.props.login();
       this.props.history.push('/posts');
+      user = {
+        'name': this.state.userName,
+        'password': this.state.password
+      };
+      sessionStorage.setItem('user', JSON.stringify(user));
+      this.props.login();
     }
   }
 
