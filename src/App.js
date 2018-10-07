@@ -6,6 +6,7 @@ import TweetsLayout from './components/TweetsLayout/TweetsLayout';
 import TweetDetails from './components/TweetDetails/TweetDetails';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import NotFound from './components/NotFound/NotFound';
+import './App.scss';
 
 class App extends Component {
   state = {

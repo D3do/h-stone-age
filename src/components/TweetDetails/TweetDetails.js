@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Button from '../Button/Button';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import './TweetDetails.scss';
 
 class TweetDetails extends Component {
   goBack = () => {
@@ -17,21 +18,21 @@ class TweetDetails extends Component {
       const tweet = this.props.tweetDetails;
       tweetDetails = (
         <React.Fragment>
-          <div>
-            <h2>User:</h2>
+          <div className="Row">
+            <h3>User:</h3>
             <p>{names[tweet.userId - 1]}</p>
           </div>
-          <div>
-            <h2>Id:</h2>
+          <div className="Row">
+            <h3>Id:</h3>
             <p>{tweet.id}</p>
           </div>
-          <div>
-            <h2>Title:</h2>
+          <div className="Row">
+            <h3>Title:</h3>
             <p>{tweet.title}</p>
           </div>
-          <div>
-            <h2>Body:</h2>
-            <p>{tweet.title}</p>
+          <div className="Row">
+            <h3>Body:</h3>
+            <p>{tweet.body}</p>
           </div>
         </React.Fragment>
       )
@@ -39,7 +40,7 @@ class TweetDetails extends Component {
 
     return (
       <ErrorBoundary>
-        <div>
+        <div className="TweetDetails">
           <Button
             click={this.goBack}>
             Go back

@@ -1,0 +1,38 @@
+.TweetsLayout {
+  margin: 5%;
+  display: grid;
+  grid-gap: 30px;
+  
+  .Header {
+    display: grid;
+    grid-template-columns: 357px 1fr;
+    grid-gap: 40px;
+
+    .Logout {
+      padding: 0;
+    }
+
+    .Search {
+      width: 100%;
+    }
+  }
+
+  .Tweets {
+    display: grid;
+    grid-gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 1088px) {
+  .TweetsLayout .Header {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 711px) {
+  .TweetsLayout .Header {
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+  }
+}

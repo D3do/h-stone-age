@@ -1,0 +1,23 @@
+.SingleTweet {
+  display: flex;
+  flex-flow: column;
+  justify-items: center;
+  height: auto;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 4px 4px 10px #ccc;
+
+  .Row {
+    display: flex;
+    align-items: baseline;
+  }
+
+  h3 {
+    margin-right: 6px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

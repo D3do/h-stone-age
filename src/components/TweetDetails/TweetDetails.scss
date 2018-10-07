@@ -1,0 +1,22 @@
+.TweetDetails {
+  margin: 2% 5%;
+  display: flex;
+  flex-flow: column;
+
+  h1 {
+    align-self: center;
+  }
+
+  .Button {
+    width: 100%;
+  }
+
+  .Row {
+    display: flex;
+    align-items: baseline;
+
+    h3 {
+      margin-right: 12px;
+    }
+  }
+}

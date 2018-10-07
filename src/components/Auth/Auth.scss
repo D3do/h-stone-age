@@ -1,0 +1,15 @@
+.Auth {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  .Input {
+    align-items: center;
+  }
+
+  .Button {
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+  }
+}

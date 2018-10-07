@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
+import './Auth.scss';
 
 class Auth extends Component {
   state = {
@@ -55,26 +56,30 @@ class Auth extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <div className="Auth">
         <h1>Login</h1>
-        <Input
-          name="userName"
-          label="Username"
-          type="text"
-          placeholder="username"
-          handleChange={this.handleChange}
-          value={this.state.userName}
-          errorText={this.state.userNameError} />
-        <Input
-          name="password"
-          label="Password"
-          type="password"
-          placeholder="password"
-          handleChange={this.handleChange}
-          value={this.state.password}
-          errorText={this.state.passwordError} />
-        <Button>Login</Button>
-      </form>
+        <form onSubmit={this.onSubmit}>
+          <Input
+            name="userName"
+            label="Username: "
+            type="text"
+            placeholder="username"
+            handleChange={this.handleChange}
+            value={this.state.userName}
+            errorText={this.state.userNameError} />
+          <Input
+            name="password"
+            label="Password: "
+            type="password"
+            placeholder="password"
+            handleChange={this.handleChange}
+            value={this.state.password}
+            errorText={this.state.passwordError} />
+          <div className="Button">
+            <Button>Login</Button>
+          </div>
+        </form>
+      </div>
     );
   }
 }

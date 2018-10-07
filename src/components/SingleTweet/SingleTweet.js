@@ -1,18 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './SingleTweet.scss';
 
 const SingleTweet = (props) => (
-  <React.Fragment>
-    <h2>UserId:</h2>
-    <p>{props.name}</p>
+  <div className="SingleTweet">
+    <div className="Row">
+      <h3>UserId:</h3>
+      <p>{props.name}</p>
+    </div>
     <Link
       to={`/posts/${props.postId}`}
       onClick={props.tweetDetails}
     >
-      <h2>Title:</h2>
-      <p>{props.title}</p>
+      <div className="Row">
+        <h3>Title:</h3>
+        <p>{props.title}</p>
+      </div>
     </Link>
-  </React.Fragment>
+  </div>
 );
 
 export default SingleTweet;

@@ -14,6 +14,7 @@ const paths = require('./paths');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -324,11 +325,55 @@ module.exports = {
             // its runtime that would otherwise be processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/],
+            exclude: [
+              /\.html$/,
+              /\.(js|jsx)$/,
+              /\.css$/,
+              /\.json$/,
+              /\.bmp$/,
+              /\.gif$/,
+              /\.jpe?g$/,
+              /\.png$/,
+              /\.scss$/,
+            ],
             loader: require.resolve('file-loader'),
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
             },
+          },
+          {
+            test: /\.css$/,
+            use: ExtractTextPlugin.extract({
+              fallback: 'style-loader',
+              use: [
+                {
+                  loader: 'css-loader',
+                  options: {
+                    modules: true,
+                    localIdentName: '[name]__[local]___[hash:base64:5]'
+                  }
+                },
+                'postcss-loader'
+              ]
+            })
+          },
+          {
+            test: /\.scss$/,
+            use: ExtractTextPlugin.extract({
+              fallback: 'style-loader',
+              use: [
+                {
+                  loader: 'css-loader',
+                  options: {
+                    modules: true,
+                    sourceMap: true,
+                    importLoaders: 2,
+                    localIdentName: '[name]__[local]___[hash:base64:5]'
+                  }
+                },
+                'sass-loader'
+              ]
+            })
           },
         ],
       },
@@ -338,6 +383,7 @@ module.exports = {
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
+    new ExtractTextPlugin({ filename: 'styles.css', allChunks: true, disable: process.env.NODE_ENV !== 'production' }),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,

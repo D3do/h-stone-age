@@ -1,0 +1,27 @@
+.Input {
+  display: flex;
+  flex-flow: column;
+
+  .Row {
+    display: flex;
+  }
+
+  label p {
+    width: 80px;
+    margin-right: 6px;
+  }
+
+  input {
+    align-self: center;
+
+    &.Invalid {
+      border: 1px solid red;
+    }
+  }
+
+  .Error {
+    font-size: 12px;
+    margin: 0 0 30px;
+    color: red;
+  }
+}

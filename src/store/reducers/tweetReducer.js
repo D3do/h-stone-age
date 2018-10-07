@@ -7,7 +7,7 @@ const initialState = {
   tweetDetails: {},
   fetchTweetDetailsStart: false,
   fetchTweetDetailsError: false,
-  loggedIn: true,
+  loggedIn: false,
 };
 
 const reducer = (state = initialState, action) => {

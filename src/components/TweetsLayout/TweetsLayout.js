@@ -5,6 +5,7 @@ import SingleTweet from '../SingleTweet/SingleTweet';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import './TweetsLayout.scss';
 
 class App extends Component {
   state = {
@@ -53,22 +54,30 @@ class App extends Component {
 
   render() {
     const names = ['Ozzy', 'Bruce', 'James', 'Dave', 'Tom', 'Till', 'Ronnie', 'James', 'Dio', 'Neil'];
+    let searchText = this.state.search.toLowerCase();
     let filteredTweets = this.state.visibleTweets.filter(
       tweet => {
-        return tweet.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+        return tweet.title.toLowerCase().indexOf(searchText) !== -1 || tweet.body.toLowerCase().indexOf(searchText) !== -1;
       }
     );
 
     return (
       <div className="TweetsLayout">
-        <Button click={this.handleLogout}>Logout</Button>
-        <Input
-          name="search"
-          type="text"
-          placeholder="filter posts"
-          handleChange={this.handleSearch}
-          value={this.state.search}></Input>
-        <div className="tweets">
+        <div className="Header">
+          <Button
+            className="Logout"
+            click={this.handleLogout} >
+            Logout
+          </Button>
+          <Input
+            className="Search"
+            name="search"
+            type="text"
+            placeholder="filter posts"
+            handleChange={this.handleSearch}
+            value={this.state.search}></Input>
+        </div>
+        <div className="Tweets">
           {
             filteredTweets.map(tweet => (
               <ErrorBoundary key={tweet.id}>
