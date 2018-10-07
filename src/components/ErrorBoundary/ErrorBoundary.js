@@ -15,7 +15,12 @@ class ErrorBoundary extends Component {
 
   render() {
     if(this.state.hasError) {
-      return <p>{this.state.errorMessage}</p>
+      return (
+        <React.Fragment>
+          <h3>Something went wrong...</h3>
+          <p>{this.state.errorMessage}</p>
+        </React.Fragment>
+      )
     } else {
       return this.props.children;
     }

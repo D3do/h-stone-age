@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Button from '../Button/Button';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 class TweetDetails extends Component {
   goBack = () => {
@@ -37,14 +38,16 @@ class TweetDetails extends Component {
     }
 
     return (
-      <div>
-        <Button
-          click={this.goBack}>
-          Go back
+      <ErrorBoundary>
+        <div>
+          <Button
+            click={this.goBack}>
+            Go back
         </Button>
-        <h1>Details</h1>
-        {tweetDetails}
-      </div>
+          <h1>Details</h1>
+          {tweetDetails}
+        </div>
+      </ErrorBoundary>
     )
   };
 };

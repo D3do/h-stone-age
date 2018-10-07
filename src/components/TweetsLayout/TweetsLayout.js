@@ -4,6 +4,7 @@ import * as actions from '../../store/actions/index';
 import SingleTweet from '../SingleTweet/SingleTweet';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   state = {
@@ -20,10 +21,6 @@ class App extends Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
-  }
-
-  componentDidCatch(error) {
-    console.log('tweetlayout error')
   }
 
   handleSearch = event => {
@@ -57,9 +54,9 @@ class App extends Component {
   render() {
     const names = ['Ozzy', 'Bruce', 'James', 'Dave', 'Tom', 'Till', 'Ronnie', 'James', 'Dio', 'Neil'];
     let filteredTweets = this.state.visibleTweets.filter(
-       tweet => {
-         return tweet.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
-       }
+      tweet => {
+        return tweet.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+      }
     );
 
     return (
@@ -74,15 +71,16 @@ class App extends Component {
         <div className="tweets">
           {
             filteredTweets.map(tweet => (
-              <SingleTweet
-                key={tweet.id}
-                name={names[tweet.userId - 1]}
-                title={tweet.title}
-                postId={tweet.id}
-                tweetDetails={() => {
-                  this.props.fetchTweetDetails(tweet.id)
-                }}
-              />
+              <ErrorBoundary key={tweet.id}>
+                <SingleTweet
+                  name={names[tweet.userId - 1]}
+                  title={tweet.title}
+                  postId={tweet.id}
+                  tweetDetails={() => {
+                    this.props.fetchTweetDetails(tweet.id)
+                  }}
+                />
+              </ErrorBoundary>
             ))
           }
         </div>

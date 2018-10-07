@@ -12,13 +12,6 @@ class App extends Component {
     error: false,
     errorMessage: ''
   }
-  
-  componentDidCatch(error, info) {
-    this.setState({
-      error: true,
-      errorMessage: error
-    })
-  }
 
   render() {
     let routes = (
