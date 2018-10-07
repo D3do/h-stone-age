@@ -1,2 +1,2 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-h-stone-age
+Run npm install and then npm run start to run application.
